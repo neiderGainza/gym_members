@@ -1,30 +1,42 @@
 import 'package:flutter/material.dart';
-import 'package:general_list/general_list.dart';
+import 'package:gym/features/client_form/view/client_form_view.dart';
+import 'package:gym/features/client_list/client_list_view.dart';
+import 'package:gym/reposiotires/client_repository.dart';
+import 'package:gym/services/database/database.dart';
 
-void main() {
-  runApp(const Gym());
-}
 
-class Gym extends StatelessWidget {
-  const Gym({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  
+  final database = AppDatabase();
+
+  /// Repositories  
+  final clientRepository = ClientRepository(database: database);
+
+  /// Views
+  final clientFormView = ClientFormView(clientRepository: clientRepository);
+  
+  final clientListView = ClientListView( 
+    clientRepository: clientRepository,
+    onAddNewClient: (context) => showDialog(context: context, builder: (context)=>clientFormView),
+  );
+
+  
+
+
+  /// Run
+  runApp(
+    MaterialApp(
+      title: 'Gym Register',
+      debugShowCheckedModeBanner: false,
+      
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: GeneralList<int>(
-        itemBuilder: (context, item){
-          return Card(
-            child: Text(item.toString()),
-          );
-        }, 
-        getItems: () async *{
-          yield [ for(int i = 0; i < 10; i++) i];
-        }
-      ),
-    );
-  }
+
+      home: clientListView 
+    )
+  );
 }
+
