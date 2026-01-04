@@ -7,4 +7,5 @@ class PaymentDB extends Table{
 
   DateTimeColumn get date           => dateTime().withDefault(currentDateAndTime)();
   DateTimeColumn get expirationDate => dateTime()();
+
 }

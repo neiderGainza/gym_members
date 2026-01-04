@@ -40,7 +40,7 @@ class ClientFormView extends StatelessWidget {
           }
         },
         child: AlertDialog(
-          title: Text("Agregar nuevo miembro"),
+          title: Text("Agregar nuevo miembro                      "),
 
           content: Form(
             child: Column(
