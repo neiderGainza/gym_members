@@ -18,7 +18,7 @@ class PhoneNumberFormField extends StatelessWidget {
           initialValue: state.phoneNumber.value,  
           onChanged: context.read<ClientFormCubit>().onPhoneNumberChanged,
           onTapOutside: (event) => context.read<ClientFormCubit>().onPhoneNumberUnFocus(),
-          
+          keyboardType: TextInputType.phone,
           decoration: InputDecoration(
             labelText: "Celular",
             suffixIcon: Icon(Icons.numbers),

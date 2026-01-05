@@ -31,4 +31,13 @@ class PaymentRepository {
     return paymentData.toPayment();
   }
 
+  Future<bool> deletePayment(Payment payment) async{
+    final result = await _database.managers.paymentDB.filter(
+      (f) => f.id.equals(payment.id)
+    ).delete();
+
+    return result > 0;
+  }
+
+
 }

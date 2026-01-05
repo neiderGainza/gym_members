@@ -18,7 +18,7 @@ class IdentificationNumberFormField extends StatelessWidget {
           initialValue: state.identificationNumber.value,
           onChanged: context.read<ClientFormCubit>().onIdentificationNumberChanged,
           onTapOutside: (event) => context.read<ClientFormCubit>().onIdentificationNumberUnFocus(),
-          
+          keyboardType: TextInputType.number,
           decoration: InputDecoration(
             labelText: "N. Carnet",
             suffixIcon: Icon(Icons.numbers),
