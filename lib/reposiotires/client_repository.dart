@@ -117,9 +117,30 @@ class ClientRepository {
   }
   
 
+  ///###########################################################
+  /// Funciones para determinar si el cliente pago en tiempo etc
   Future<bool?> isClientInD(Client client) async{
     final lastPayment = await getLastPayment(client);
+    final now         = DateTime.now();
+
     if ( lastPayment == null) return null;
-    return DateTime.now().compareTo(lastPayment.expirationDate) > 0;
+    
+    return now.compareTo(lastPayment.expirationDate) > 0 
+          && now.difference(lastPayment.expirationDate).inDays < 30;
+  }
+
+
+  Future<bool> didClientLeaveGym(Client client) async{
+    final lastPayment = await getLastPayment(client);
+    final now         = DateTime.now();
+
+    if ( lastPayment == null) return false;
+    
+    return lastPayment.expirationDate.difference(now).inDays <= -30;
+  } 
+
+  Future<bool> clientIsOkWithPayment(Client client) async {
+    final clientInDebOrNeverPaid = await isClientInD(client) ?? true;
+    return !(  clientInDebOrNeverPaid || await didClientLeaveGym(client));
   }
 }

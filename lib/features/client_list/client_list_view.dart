@@ -66,8 +66,9 @@ class ClientListView extends StatelessWidget{
         filterWidgets: [
           SingleSelectionFilterWidget(
             choices: [
+              (filter: (Client a) async => await clientRepository.clientIsOkWithPayment(a), label: "En regla"),   
               (filter: (Client a) async => (await clientRepository.isClientInD(a)) ?? false, label: "Deudores"),
-              (filter: (Client a) async => !((await clientRepository.isClientInD(a)) ?? true), label: "En regla"),   
+              (filter: (Client a) async => await clientRepository.didClientLeaveGym(a), label: "+1 Mes sin pagar"),
               (filter: (Client a) async => await clientRepository.isClientInD(a) == null, label: "Sin pagos registrados"),   
             ], 
             title: "Filtrar por estado de pago"

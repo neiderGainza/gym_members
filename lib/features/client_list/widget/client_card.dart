@@ -103,7 +103,7 @@ class ClientCard extends StatelessWidget{
   }
 
 
-  Text prepareTextForPayment(Payment lastPayment){
+  Widget prepareTextForPayment(Payment lastPayment){
     final paymentDay    = (lastPayment.expirationDate.day  < 10)
                           ? '0${lastPayment.expirationDate.day}'
                           : '${lastPayment.expirationDate.day}';
@@ -120,23 +120,18 @@ class ClientCard extends StatelessWidget{
                           ? '+$daysPaid'
                           : '$daysPaid';
 
-    return Text.rich(
-      TextSpan(
-        text: '$paymentDay/$paymentMonth ',
-        style: TextStyle(
-          fontSize: 16
-        ),
-        children: [
-          TextSpan(
-            text: '($diference)',
-            style: TextStyle(
-              color: daysPaid > 0 ? Colors.green : (daysPaid == 0) ? Colors.orange:Colors.red
-            )
-          )
-        ]
-      )
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text( '$paymentDay/$paymentMonth ', style: TextStyle( fontSize: 16 ),),
+        (daysPaid > -30)
+        ? Text(
+          '($diference)', 
+          style: TextStyle( fontSize: 16, color:  daysPaid > 0 ? Colors.green : (daysPaid == 0) ? Colors.orange:Colors.red),
+        )
+        : const Icon(Icons.flag, color: Colors.red,)
+      ],
     );
-    
   }
   
 }

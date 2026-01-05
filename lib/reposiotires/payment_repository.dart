@@ -1,3 +1,4 @@
+import 'package:drift/drift.dart';
 import 'package:gym/models/client.dart';
 import 'package:gym/models/payment.dart';
 import 'package:gym/reposiotires/mappers/payment_mappers.dart';
@@ -39,5 +40,16 @@ class PaymentRepository {
     return result > 0;
   }
 
+  Future<Payment?> getLastPayment(Client client) async {
+    assert(client.id != null);
 
+    final lastPayment = await (_database.select(_database.paymentDB)
+      ..where( (p) => p.clientId.equals(client.id!))
+      ..orderBy([ (p) => OrderingTerm(expression: p.date, mode: OrderingMode.desc), ])
+      ..limit(1)).getSingleOrNull();
+
+    return (lastPayment == null)
+          ? null
+          : lastPayment.toPayment();  
+  }
 }

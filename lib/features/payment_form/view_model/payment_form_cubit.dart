@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gym/features/client_details/widget/last_payment_widget.dart';
 import 'package:gym/features/payment_form/view_model/payment_form_state.dart';
 import 'package:gym/models/client.dart';
 import 'package:gym/models/payment.dart';
@@ -16,8 +17,22 @@ class PaymentFormCubit extends Cubit<PaymentFormState>{
   assert(client.id != null),
   super(
     PaymentFormState(since: DateTime.now(), extension: daysThisMonth())
-  ) ;
+  ){
+    loadMinSinceAllowed();
+  }
 
+  void loadMinSinceAllowed() async {
+    final lastPayment     = await paymentRepository.getLastPayment(client);
+    final minSinceAllowed = (lastPayment == null)
+                            ? DateTime.now() 
+                            : lastPayment.expirationDate;
+    
+    emit(
+      state.copyWith(
+        minSinceAllowed: minSinceAllowed
+      )
+    );
+  }
 
   void onSinceChanged(DateTime newTime){
     emit(
@@ -47,9 +62,9 @@ class PaymentFormCubit extends Cubit<PaymentFormState>{
     try{
       paymentRepository.addPayment(
         Payment(
-          clientId: client.id!,
-          date          : state.since, 
-          expirationDate: expirationDate
+          clientId       : client.id!,
+          date           : state.since, 
+          expirationDate : expirationDate
         ) 
       );
       
@@ -65,7 +80,6 @@ class PaymentFormCubit extends Cubit<PaymentFormState>{
     );
   }
   
-
   static Duration daysThisMonth(){
     final now   = DateTime.now();
     final today = DateTime(now.year, now.month, now.day); 
