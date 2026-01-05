@@ -50,11 +50,11 @@ class PaymentList extends StatelessWidget {
                     trailing: Text(parseDateTime(payment.date), style: TextStyle(fontSize: 16),),
                   ),
                   ListTile(
-                    title: const Text("Fecha de expiracion:", ),
+                    title: const Text("Fecha de expiración:", ),
                     trailing: Text(parseDateTime(payment.date), style: TextStyle(fontSize: 16)),
                   ),
                   ListTile(
-                    title: const Text("Extension del pago:"),
+                    title: const Text("Extensión del pago:"),
                     trailing: (Text('${getDaysPaid(payment).toString()} días', style: TextStyle(fontSize: 16))),
                   ),
                 ],

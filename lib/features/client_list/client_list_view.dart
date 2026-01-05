@@ -5,6 +5,7 @@ import 'package:gym/features/client_list/widget/client_card.dart';
 import 'package:gym/models/client.dart';
 import 'package:gym/reposiotires/client_repository.dart';
 
+
 class ClientListView extends StatelessWidget{
   const ClientListView({
     super.key,
@@ -27,9 +28,9 @@ class ClientListView extends StatelessWidget{
     return Scaffold(
       appBar: AppBar(
         title: Text("Gym Members", style: TextStyle(color: Theme.of(context).colorScheme.onPrimaryContainer),),
-        actions: [
-          IconButton(onPressed: (){}, icon: Icon(Icons.more_vert))
-        ],
+        // actions: [
+        //   IconButton(onPressed: (){}, icon: Icon(Icons.more_vert))
+        // ],
         backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       ),
       
