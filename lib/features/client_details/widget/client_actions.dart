@@ -17,8 +17,13 @@ class ClientActions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return GridView(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 3,
+        childAspectRatio: 1,
+        crossAxisSpacing: 10
+      ),
+      shrinkWrap: true,
       children: [
         EditButton(onEditClient: onEditClient,),
         AddPaymentButton(onAddNewPayment: onAddNewPayment,),

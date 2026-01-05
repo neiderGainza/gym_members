@@ -17,7 +17,7 @@ class DeleteButton extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16), // bordes redondeados
         ),
-        minimumSize: Size(120, 120), // cuadrado
+        minimumSize: Size(100, 100), // cuadrado
         backgroundColor: Theme.of(context).colorScheme.surfaceContainerLow, // color de fondo
       ),
       onPressed: () async {
