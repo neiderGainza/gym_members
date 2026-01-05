@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gym/features/payment_form/view_model/payment_form_state.dart';
 import 'package:gym/models/client.dart';
@@ -8,7 +7,6 @@ import 'package:gym/reposiotires/payment_repository.dart';
 class PaymentFormCubit extends Cubit<PaymentFormState>{
   final Client client;
   final PaymentRepository paymentRepository;
-
 
 
   PaymentFormCubit({

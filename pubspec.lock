@@ -280,12 +280,20 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.8.0"
+  fuzzy:
+    dependency: "direct main"
+    description:
+      name: fuzzy
+      sha256: af5fbd36f2f8de0663a5b562ef5ca209aea957e81a2f0e97f97475cfbed044ec
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.5.1"
   general_list:
     dependency: "direct main"
     description:
       path: "."
-      ref: HEAD
-      resolved-ref: "1e46716d7d35c6428a35d0673c666cff0858fdb2"
+      ref: "12c1ece"
+      resolved-ref: "12c1ece49ccd92c61604de1696566c0b559509be"
       url: "https://github.com/neiderGainza/GeneralList"
     source: git
     version: "0.0.1"
@@ -646,6 +654,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.4.1"
+  stringr:
+    dependency: transitive
+    description:
+      name: stringr
+      sha256: bcc6e5cef07142673ff454b0fe7ca153e433646c52edf729636980e8a47bd7b7
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.1"
   term_glyph:
     dependency: transitive
     description:

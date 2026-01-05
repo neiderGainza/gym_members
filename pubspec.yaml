@@ -39,12 +39,13 @@ dependencies:
   general_list:
     git: 
       url: https://github.com/neiderGainza/GeneralList
-      # ref: main
+      ref: 12c1ece
   drift: ^2.30.0
   drift_flutter: ^0.2.8
   path_provider: ^2.1.5
   formz: ^0.8.0
   time_picker_spinner_pop_up: ^3.0.0
+  fuzzy: ^0.5.1
 
 
 

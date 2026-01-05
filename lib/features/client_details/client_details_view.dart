@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:general_list/general_list.dart';
 import 'package:gym/features/client_details/view_model/client_details_cubit.dart';
 import 'package:gym/features/client_details/view_model/client_details_state.dart';
 import 'package:gym/features/client_details/widget/client_actions.dart';
@@ -8,7 +7,6 @@ import 'package:gym/features/client_details/widget/last_payment_widget.dart';
 import 'package:gym/features/client_details/widget/payment_list.dart';
 import 'package:gym/features/client_details/widget/user_contact_infor.dart';
 import 'package:gym/models/client.dart';
-import 'package:gym/models/payment.dart';
 import 'package:gym/reposiotires/client_repository.dart';
 import 'package:gym/reposiotires/payment_repository.dart';
 
