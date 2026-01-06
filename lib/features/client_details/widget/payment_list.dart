@@ -36,7 +36,7 @@ class PaymentList extends StatelessWidget {
                     final result = await areYouSure(context, payment);
                     if(result == true){
                       await paymentRepository.deletePayment(payment);
-                      await clientDetailsCubit.updateClient();
+                      await clientDetailsCubit.loadLastPayment();
                     }
                   },child: Text("Eliminar")),
                 ]

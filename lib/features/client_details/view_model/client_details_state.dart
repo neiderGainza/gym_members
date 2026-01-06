@@ -28,6 +28,15 @@ class ClientDetailsState {
       clientDeleted: clientDeleted ?? this.clientDeleted
     );
   }
+
+  ClientDetailsState copyWithLastPaymentNull(){
+    return ClientDetailsState(
+      client: client,
+      lastPayment: null,
+      paymentCheckState: PaymentCheckState.finished,
+      clientDeleted: clientDeleted
+    );
+  }
 }
 
 

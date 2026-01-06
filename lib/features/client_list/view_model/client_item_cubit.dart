@@ -18,12 +18,16 @@ class ClientItemCubit extends Cubit<ClientItemState>{
 
   Future<void> loadLastPayment() async{
     final lastPayment = await clientRepository.getLastPayment(client);
-    emit(
-      state.copyWith(
-        lastPayment: lastPayment,
-        paymentCheckState: PaymentCheckState.finished
-      )
-    );
+    if(lastPayment == null){
+      emit( state.copyWithLastPaymentNull() );
+    }else{
+      emit(
+        state.copyWith(
+          lastPayment: lastPayment,
+          paymentCheckState: PaymentCheckState.finished
+        )
+      );
+    }
   }
 
   Future<void> updateLastPayment() async {

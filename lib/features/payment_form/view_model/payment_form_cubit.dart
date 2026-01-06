@@ -1,5 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gym/features/client_details/widget/last_payment_widget.dart';
 import 'package:gym/features/payment_form/view_model/payment_form_state.dart';
 import 'package:gym/models/client.dart';
 import 'package:gym/models/payment.dart';
@@ -29,7 +28,8 @@ class PaymentFormCubit extends Cubit<PaymentFormState>{
     
     emit(
       state.copyWith(
-        minSinceAllowed: minSinceAllowed
+        minSinceAllowed: minSinceAllowed,
+        since: minSinceAllowed
       )
     );
   }

@@ -14,11 +14,16 @@ class PaymentRepository {
 
   Stream<List<Payment>> getPaymentByClient(Client client) async*{
     await for(final paymentDBList in _database.managers.paymentDB.watch()){
-      yield paymentDBList.where(
+      final paymentList = paymentDBList.where(
         (paymentDb) => paymentDb.clientId == client.id
       ).map(
         (paymentDb) => paymentDb.toPayment()
       ).toList();
+
+      paymentList.sort(
+        (a, b) => b.expirationDate.compareTo(a.expirationDate)
+      );
+      yield paymentList;
     }
   } 
 

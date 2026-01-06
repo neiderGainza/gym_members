@@ -18,6 +18,13 @@ class ClientItemState {
       paymentCheckState: paymentCheckState ?? this.paymentCheckState
     );
   }
+
+  ClientItemState copyWithLastPaymentNull(){
+    return ClientItemState(
+      lastPayment: null,
+      paymentCheckState: PaymentCheckState.finished
+    );
+  }
 }
 
 
