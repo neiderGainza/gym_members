@@ -75,8 +75,10 @@ class ClientListView extends StatelessWidget{
           )
         ],
         searchFunction: (item, serachTerm){
-          final search = Fuzzy([item.name, item.identificationNumber, item.phoneNumber]).search(serachTerm);
-          return search.isNotEmpty;
+          /// fuzzy search
+          // final search = Fuzzy([item.name, item.identificationNumber, item.phoneNumber]).search(serachTerm);
+          // return search.isNotEmpty;
+          return item.name.toLowerCase().contains(serachTerm);
         },
       ),
     );
