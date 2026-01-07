@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fuzzy/fuzzy.dart';
+// import 'package:fuzzy/fuzzy.dart';
 import 'package:general_list/general_list.dart';
 import 'package:gym/features/client_list/widget/client_card.dart';
 import 'package:gym/models/client.dart';

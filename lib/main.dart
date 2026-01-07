@@ -1,3 +1,4 @@
+import 'package:access_widget/access_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:gym/features/client_details/client_details_view.dart';
 import 'package:gym/features/client_form/view/client_form_view.dart';
@@ -70,8 +71,8 @@ void main() async {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple, brightness: Brightness.dark),
       ),
-
-      home: clientListView 
+    
+      home: AccessWidget(child: clientListView) 
     )
   );
 }
