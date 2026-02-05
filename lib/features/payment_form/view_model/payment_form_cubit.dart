@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gym/features/payment_form/view_model/payment_form_state.dart';
 import 'package:gym/models/client.dart';
@@ -40,13 +41,17 @@ class PaymentFormCubit extends Cubit<PaymentFormState>{
 
   Future<void> addPayment() async {
     var paymentFormSubmitionStatus = state.paymentFormSubmitionStatus;
+    var expirationDate = state.since.add(state.extension);
+    expirationDate     =  expirationDate.add(
+      -Duration(hours: expirationDate.hour, minutes: expirationDate.minute),
+    );
 
     try{
       paymentRepository.addPayment(
         Payment(
           clientId: client.id!,
           date          : state.since, 
-          expirationDate: state.since.add(state.extension)
+          expirationDate: expirationDate
         ) 
       );
       

@@ -116,4 +116,10 @@ class ClientRepository {
     ).toList();
   }
   
+
+  Future<bool?> isClientInD(Client client) async{
+    final lastPayment = await getLastPayment(client);
+    if ( lastPayment == null) return null;
+    return DateTime.now().compareTo(lastPayment.expirationDate) > 0;
+  }
 }

@@ -36,11 +36,13 @@ class LastPaymentWidget extends StatelessWidget {
                           ? '0${lastPayment.expirationDate.month}'
                           : '${lastPayment.expirationDate.month}';
 
-    final diference     = ( lastPayment.expirationDate.difference(DateTime.now()).inDays + 1 > 0)
-                          ? '+${lastPayment.expirationDate.difference(DateTime.now()).inDays + 1}'
-                          : '${lastPayment.expirationDate.difference(DateTime.now()).inDays + 1}';
+    final timePaid      = lastPayment.expirationDate.difference(DateTime.now());
+    final ajuste        = (timePaid.inHours + timePaid.inMinutes > 0) ? 1:0;
+    final daysPaid      = timePaid.inDays + ajuste;
 
-    final isPositive    = lastPayment.expirationDate.difference(DateTime.now()).inDays + 1> 0;
+    final diference     = (daysPaid > 0)
+                          ? '+$daysPaid'
+                          : '$daysPaid';
 
     return Text.rich(
       TextSpan(
@@ -52,7 +54,7 @@ class LastPaymentWidget extends StatelessWidget {
           TextSpan(
             text: '($diference)',
             style: TextStyle(
-              color: isPositive ? Colors.green : Colors.red
+              color: daysPaid > 0 ? Colors.green : (daysPaid == 0) ? Colors.orange:Colors.red
             )
           )
         ]

@@ -62,17 +62,18 @@ class ClientListView extends StatelessWidget{
         ],
 
         filterWidgets: [
-          MultipleSelectionFilterWidget(
+          SingleSelectionFilterWidget(
             choices: [
-              (filter: (Client a) async => true, label: "Hola")
+              (filter: (Client a) async => (await clientRepository.isClientInD(a)) ?? false, label: "Deudores"),
+              (filter: (Client a) async => !((await clientRepository.isClientInD(a)) ?? true), label: "En regla"),   
+              (filter: (Client a) async => await clientRepository.isClientInD(a) == null, label: "Sin pagos registrados"),   
             ], 
-            title: "Filtros"
+            title: "Filtrar por estado de pago"
           )
         ],
       ),
     );
   }
-
 
   int compareIdentificationNumber(Client a , Client b){
     if (a.identificationNumber == null) return -1;

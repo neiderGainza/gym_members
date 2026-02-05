@@ -10,8 +10,8 @@ class ExpirationTimePicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final days = daysThisMoth().inDays;
-
+    final days = PaymentFormCubit.daysThisMonth().inDays;
+    
     return Row(
       children: [
         const Text("Hasta: "),
@@ -57,15 +57,6 @@ class ExpirationTimePicker extends StatelessWidget {
       ],
     );
   }
-
-
-  Duration daysThisMoth(){
-    final now   = DateTime.now();
-    final today = DateTime(now.year, now.month, now.day); 
-
-    return DateTime(now.year, now.month + 1, now.day).difference(today);
-  }
-
 
 }
 

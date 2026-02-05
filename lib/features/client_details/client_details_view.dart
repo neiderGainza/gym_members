@@ -5,6 +5,7 @@ import 'package:gym/features/client_details/view_model/client_details_cubit.dart
 import 'package:gym/features/client_details/view_model/client_details_state.dart';
 import 'package:gym/features/client_details/widget/client_actions.dart';
 import 'package:gym/features/client_details/widget/last_payment_widget.dart';
+import 'package:gym/features/client_details/widget/payment_list.dart';
 import 'package:gym/features/client_details/widget/user_contact_infor.dart';
 import 'package:gym/models/client.dart';
 import 'package:gym/models/payment.dart';
@@ -35,9 +36,9 @@ class ClientDetailsView extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     final clientDetailsCubit = ClientDetailsCubit(clientRepository: clientRepository, client: client);
-    return BlocProvider<ClientDetailsCubit>(
-      create: (context) => clientDetailsCubit,
-
+    
+    return BlocProvider<ClientDetailsCubit>.value(
+      value: clientDetailsCubit,
       child: BlocConsumer<ClientDetailsCubit, ClientDetailsState>(
         bloc: clientDetailsCubit,
 
@@ -67,39 +68,9 @@ class ClientDetailsView extends StatelessWidget{
                 (MediaQuery.of(context).size.width > 600)
                 ? desktopHeader(context)
                 : mobileHeader(context),
-
+                
                 Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.all(16.0),
-                    margin: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.surfaceContainer,
-                      borderRadius: BorderRadius.circular(8)
-                    ),
-                    child: GeneralList<Payment>(
-                      itemBuilder: (context, payment){
-                        return Card(
-                          child: Column(
-                            children: [
-                              ListTile(
-                                title: const Text("Fecha de pago:"),
-                                trailing: Text(payment.date.toString()),
-                              ),
-                              ListTile(
-                                title: const Text("Fecha de expiracion:"),
-                                trailing: Text(payment.expirationDate.toString()),
-                              ),
-                              ListTile(
-                                title: const Text("Extension del pago:"),
-                                trailing: Text(payment.expirationDate.difference(payment.date).inDays.toString()),
-                              ),
-                            ],
-                          ),
-                        );
-                      }, 
-                      getItems: () => paymentRepository.getPaymentByClient(state.client)
-                    ),
-                  )
+                  child: PaymentList(paymentRepository: paymentRepository)
                 )
               ],  
             ),
