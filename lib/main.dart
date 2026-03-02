@@ -23,7 +23,15 @@ void main() async {
 
   final clientListView = ClientListView( 
     clientRepository: clientRepository,
-    onAddNewClient: (context) => showDialog(context: context, builder: (context)=>clientFormView),
+    
+    onAddNewClient: (context) => showDialog(
+      context: context, 
+      builder: (context)=>clientFormView
+    ),
+    onEditClient: (context, client) => showDialog(
+      context: context, 
+      builder: (context)=>ClientFormView(clientRepository: clientRepository, client: client,)
+    ),
     onAddNewPayment: (context, client) async => showDialog(
       context: context, 
       builder: (context)=>PaymentFormView(paymentRepository: paymentRepository, client: client)

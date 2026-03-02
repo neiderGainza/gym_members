@@ -60,8 +60,10 @@ class ExpirationTimePicker extends StatelessWidget {
 
 
   Duration daysThisMoth(){
-    final now = DateTime.now();
-    return DateTime(now.year, now.month + 1, now.day).difference(now);
+    final now   = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day); 
+
+    return DateTime(now.year, now.month + 1, now.day).difference(today);
   }
 
 

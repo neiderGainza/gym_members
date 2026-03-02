@@ -16,7 +16,7 @@ class PaymentFormCubit extends Cubit<PaymentFormState>{
   }): 
   assert(client.id != null),
   super(
-    PaymentFormState(since: DateTime.now(), extension: daysThisMoth())
+    PaymentFormState(since: DateTime.now(), extension: daysThisMonth())
   ) ;
 
 
@@ -47,7 +47,7 @@ class PaymentFormCubit extends Cubit<PaymentFormState>{
           clientId: client.id!,
           date          : state.since, 
           expirationDate: state.since.add(state.extension)
-        )
+        ) 
       );
       
       paymentFormSubmitionStatus = PaymentFormSubmitionStatus.success;
@@ -63,8 +63,10 @@ class PaymentFormCubit extends Cubit<PaymentFormState>{
   }
   
 
-  static Duration daysThisMoth(){
-    final now = DateTime.now();
-    return DateTime(now.year, now.month + 1, now.day).difference(now);
+  static Duration daysThisMonth(){
+    final now   = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day); 
+    
+    return DateTime(now.year, now.month + 1, now.day).difference(today);
   }
 }

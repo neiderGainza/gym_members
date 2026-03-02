@@ -50,6 +50,21 @@ class ClientRepository {
   }
 
 
+  Future<Client> updateClient(Client client) async {
+    try{
+
+      final id = await _database.managers.clientDB.create(
+        (f) => client.toCompanion(),
+        mode: InsertMode.replace
+      );    
+
+      return (await _database.managers.clientDB.filter((f) => f.id.equals(id)).getSingle()).toClient();
+
+    }catch(e){
+      throw UnExpectedException();
+    }
+  }
+
   Future<bool> isNameAlreadyInUse(String name) async {
     return await _database.managers.clientDB.filter( (f) => f.name.equals( name ) ).exists();
   }

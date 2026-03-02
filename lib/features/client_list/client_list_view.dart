@@ -9,13 +9,14 @@ class ClientListView extends StatelessWidget{
     super.key,
     required this.clientRepository,
     required this.onAddNewClient,
-    required this.onAddNewPayment
+    required this.onAddNewPayment,
+    required this.onEditClient
   });
 
   final ClientRepository clientRepository;
   final void Function(BuildContext context) onAddNewClient;
   final Future<void> Function(BuildContext context, Client client) onAddNewPayment;
-
+  final Future<void> Function(BuildContext context, Client client) onEditClient;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +39,12 @@ class ClientListView extends StatelessWidget{
       body: GeneralList<Client>(
 
         itemBuilder: (context, client){
-          return ClientCard(clientRepository: clientRepository, client: client, onAddNewPayment: onAddNewPayment,);
+          return ClientCard(
+            clientRepository: clientRepository, 
+            client: client, 
+            onAddNewPayment: onAddNewPayment,
+            onEditClient: onEditClient,
+          );
         }, 
 
         getItems: () => clientRepository.clients,

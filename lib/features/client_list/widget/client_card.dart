@@ -12,11 +12,13 @@ class ClientCard extends StatelessWidget{
     super.key,
     required this.clientRepository,
     required this.client,
-    required this.onAddNewPayment
+    required this.onAddNewPayment,
+    required this.onEditClient
   });
 
   final ClientRepository clientRepository;
   final Future<void> Function(BuildContext context, Client client) onAddNewPayment;
+  final Future<void> Function(BuildContext context, Client client) onEditClient;
   final Client client;
 
   @override
@@ -37,7 +39,12 @@ class ClientCard extends StatelessWidget{
                 await onAddNewPayment(context, client);
                 clientItemCubit.updateLastPayment();
               }, child: Text("Agregar Pago"), ), 
-              PopupMenuItem(child: Text("Editar"), ), 
+              
+              PopupMenuItem(onTap: () async {
+                await onEditClient(context,client);
+
+              }, child: Text("Editar"), ), 
+              
               PopupMenuItem(onTap: () => deleteClient(context, client),child: Text("Eliminar")),
             ]
           );
@@ -91,7 +98,7 @@ class ClientCard extends StatelessWidget{
 
 
   Text prepareTextForPayment(Payment lastPayment){
-    final paymentDay    = (lastPayment.expirationDate.day < 10)
+    final paymentDay    = (lastPayment.expirationDate.day  < 10)
                           ? '0${lastPayment.expirationDate.day}'
                           : '${lastPayment.expirationDate.day}';
 
@@ -99,11 +106,11 @@ class ClientCard extends StatelessWidget{
                           ? '0${lastPayment.expirationDate.month}'
                           : '${lastPayment.expirationDate.month}';
 
-    final diference     = ( lastPayment.expirationDate.difference(DateTime.now()).inDays > 0)
-                          ? '+${lastPayment.expirationDate.difference(DateTime.now()).inDays}'
-                          : '${lastPayment.expirationDate.difference(DateTime.now()).inDays}';
+    final diference     = ( lastPayment.expirationDate.difference(DateTime.now()).inDays + 1 > 0)
+                          ? '+${lastPayment.expirationDate.difference(DateTime.now()).inDays + 1}'
+                          : '${lastPayment.expirationDate.difference(DateTime.now()).inDays + 1}';
 
-    final isPositive    = lastPayment.expirationDate.difference(DateTime.now()).inDays > 0;
+    final isPositive    = lastPayment.expirationDate.difference(DateTime.now()).inDays + 1> 0;
 
     return Text.rich(
       TextSpan(
