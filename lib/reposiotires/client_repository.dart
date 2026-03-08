@@ -24,6 +24,13 @@ class ClientRepository {
     }
   } 
 
+  Future<Client> getClientById(int cliendId) async{
+    final clientDb = await (_database.managers.clientDB.filter(
+      (f) => f.id.equals(cliendId)
+    )).getSingle();
+
+    return clientDb.toClient();
+  }
 
   Future<Client> addClient(Client client) async {
     if ( await isNameAlreadyInUse(client.name)){

@@ -10,13 +10,16 @@ class ClientListView extends StatelessWidget{
     required this.clientRepository,
     required this.onAddNewClient,
     required this.onAddNewPayment,
-    required this.onEditClient
+    required this.onEditClient,
+    required this.onClientDetailsView
   });
+
 
   final ClientRepository clientRepository;
   final void Function(BuildContext context) onAddNewClient;
   final Future<void> Function(BuildContext context, Client client) onAddNewPayment;
   final Future<void> Function(BuildContext context, Client client) onEditClient;
+  final Future<void> Function(BuildContext context, Client client) onClientDetailsView;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +31,7 @@ class ClientListView extends StatelessWidget{
         ],
         backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       ),
-
+      
 
       floatingActionButton: FloatingActionButton(
         onPressed: () => onAddNewClient(context),
@@ -44,6 +47,7 @@ class ClientListView extends StatelessWidget{
             client: client, 
             onAddNewPayment: onAddNewPayment,
             onEditClient: onEditClient,
+            onClientDetailsView: onClientDetailsView,
           );
         }, 
 
@@ -57,14 +61,14 @@ class ClientListView extends StatelessWidget{
           (order: compareIdentificationNumber, label: "N. Carnet"),
         ],
 
-        // filterWidgets: [
-        //   MultipleSelectionFilterWidget(
-        //     choices: [
-        //       (filter: (Client a) async => true, label: "Hola")
-        //     ], 
-        //     title: "Filtros"
-        //   )
-        // ],
+        filterWidgets: [
+          MultipleSelectionFilterWidget(
+            choices: [
+              (filter: (Client a) async => true, label: "Hola")
+            ], 
+            title: "Filtros"
+          )
+        ],
       ),
     );
   }

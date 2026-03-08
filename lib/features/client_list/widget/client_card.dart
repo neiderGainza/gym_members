@@ -13,12 +13,15 @@ class ClientCard extends StatelessWidget{
     required this.clientRepository,
     required this.client,
     required this.onAddNewPayment,
-    required this.onEditClient
+    required this.onEditClient,
+    required this.onClientDetailsView
   });
 
   final ClientRepository clientRepository;
   final Future<void> Function(BuildContext context, Client client) onAddNewPayment;
   final Future<void> Function(BuildContext context, Client client) onEditClient;
+  final Future<void> Function(BuildContext context, Client client) onClientDetailsView;
+
   final Client client;
 
   @override
@@ -49,7 +52,10 @@ class ClientCard extends StatelessWidget{
             ]
           );
         },
-
+        onTap: () async {
+          await onClientDetailsView(context,client);
+          clientItemCubit.updateLastPayment();
+        },
         child: Card(
           child: ListTile(
             title: Text(client.name),
@@ -68,7 +74,7 @@ class ClientCard extends StatelessWidget{
 
 
 
-
+  
   Future<void> deleteClient(BuildContext context, Client client) async {
     final result = await areYouSure(context, client);
     if(result == true){

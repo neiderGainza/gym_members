@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gym/features/client_details/client_details_view.dart';
 import 'package:gym/features/client_form/view/client_form_view.dart';
 import 'package:gym/features/client_list/client_list_view.dart';
 import 'package:gym/features/payment_form/payment_form_view.dart';
@@ -21,6 +22,7 @@ void main() async {
   /// Views
   final clientFormView = ClientFormView(clientRepository: clientRepository);
 
+  
   final clientListView = ClientListView( 
     clientRepository: clientRepository,
     
@@ -35,6 +37,24 @@ void main() async {
     onAddNewPayment: (context, client) async => showDialog(
       context: context, 
       builder: (context)=>PaymentFormView(paymentRepository: paymentRepository, client: client)
+    ),
+
+    onClientDetailsView: (context, client) async => await Navigator.push(
+      context, 
+      MaterialPageRoute(
+        builder: (context) => ClientDetailsView(
+          clientRepository: clientRepository, 
+          client: client,
+          onEditClient: (context, client) => showDialog(
+            context: context, 
+            builder: (context)=>ClientFormView(clientRepository: clientRepository, client: client,)
+          ),
+          onAddNewPayment: (context, client) async => showDialog(
+            context: context, 
+            builder: (context)=>PaymentFormView(paymentRepository: paymentRepository, client: client)
+          ),
+        )
+      )
     ),
   );
 
