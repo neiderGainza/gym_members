@@ -1,3 +1,4 @@
+import 'package:gym/models/client.dart';
 import 'package:gym/models/payment.dart';
 import 'package:gym/reposiotires/mappers/payment_mappers.dart';
 import 'package:gym/services/database/database.dart';
@@ -9,6 +10,16 @@ class PaymentRepository {
     required AppDatabase database
   }) : _database = database;
 
+
+  Stream<List<Payment>> getPaymentByClient(Client client) async*{
+    await for(final paymentDBList in _database.managers.paymentDB.watch()){
+      yield paymentDBList.where(
+        (paymentDb) => paymentDb.clientId == client.id
+      ).map(
+        (paymentDb) => paymentDb.toPayment()
+      ).toList();
+    }
+  } 
 
   Future<Payment?> addPayment(Payment payment) async{
     assert(payment.id == null);

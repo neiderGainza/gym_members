@@ -44,7 +44,9 @@ void main() async {
       MaterialPageRoute(
         builder: (context) => ClientDetailsView(
           clientRepository: clientRepository, 
+          paymentRepository: paymentRepository,
           client: client,
+          
           onEditClient: (context, client) => showDialog(
             context: context, 
             builder: (context)=>ClientFormView(clientRepository: clientRepository, client: client,)
